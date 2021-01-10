@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Acheter{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Voir tous nos bien </h1>
+        {% for property in properties %}
+            <ul>
+                <li>{{ property.title }}
+                    <ul>
+                        <li>{{ property.title }}</li>
+                        <li>{{ property.description }}</li>
+                        <li>{{ property.surface }}</li>
+                        <li>{{ property.rooms }}</li>
+                        <li>{{ property.bedrooms }}</li>
+                        <li>{{ property.floor }}</li>
+                        <li>{{ property.price }}</li>
+                        <li>{{ property.heat }}</li>
+                        <li>{{ property.city }}</li>
+                        <li>{{ property.adress }}</li>
+                        <li>{{ property.codePostal }}</li>
+                        <li>{{ property.sold }}</li>
+                        <li>{{ property.createdAt|date('d/m/Y') }}</li>
+                    </ul>
+                </li>
+            </ul>
+
+
+        {% endfor %}
+    </div>
+{% endblock %}
