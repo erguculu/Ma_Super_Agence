@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Property;
 use App\Repository\PropertyRepository;
+use ContainerG93yvNH\getResponseService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 /**
- * @Route("/property", name="property_")
+ * @Route("/biens", name="property_")
  */
 class PropertyController extends AbstractController
 {
@@ -23,24 +24,20 @@ class PropertyController extends AbstractController
      */
     public function index(PropertyRepository $propertyRepository, EntityManagerInterface $em): Response
     {
-        $property = new Property();
-        $property->setTitle('Maison')
-            ->setPrice(200000)
-            ->setRooms(4)
-            ->setBedrooms(2)
-            ->setDescription('Très belle maison')
-            ->setSurface(110)
-            ->setFloor(0)
-            ->setHeat(1)
-            ->setCity('Tours')
-            ->setAdress('10 Boulevard Beranger')
-            ->setCodePostal('37000');
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($property);
-        $em->flush();
-
         return $this->render('property/index.html.twig', [
-            'properties' => $propertyRepository->findAll(),
+            'properties' => $propertyRepository->findAllVisible(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="show")
+     * @param Property $property
+     * @return Response
+     */
+    public function show(Property $property): Response
+    {
+        return $this->render('property/show.html.twig',[
+            'property' => $property
         ]);
     }
 }
