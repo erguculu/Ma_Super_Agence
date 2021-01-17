@@ -45,6 +45,8 @@ class AdminController extends AbstractController
             $em->persist($property);
             $em->flush();
 
+            $this->addFlash('success', 'Le bien a été bien ajouté');
+
             return $this->redirectToRoute('admin_property_index');
         };
         return $this->render('admin/new.html.twig', [
@@ -69,6 +71,9 @@ class AdminController extends AbstractController
             $em->persist($property);
             $em->flush();
 
+            $this->addFlash('success', 'Le bien a été bien édité');
+
+
             return $this->redirectToRoute('admin_property_index');
         }
 
@@ -90,6 +95,8 @@ class AdminController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$property->getId(), $request->request->get('_token'))){
         $em->remove($property);
         $em->flush();
+
+            $this->addFlash('danger', 'Le bien a été bien supprimé');
         }
         return $this->redirectToRoute('admin_property_index');
 
