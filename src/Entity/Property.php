@@ -5,9 +5,11 @@ namespace App\Entity;
 use App\Repository\PropertyRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=PropertyRepository::class)
+ * @UniqueEntity("title")
  */
 class Property
 {
@@ -24,7 +26,7 @@ class Property
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(Min=3, max=255)
+     * @Assert\Length(min=3, max=255)
      */
     private $title;
 
