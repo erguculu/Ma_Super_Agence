@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PropertyRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PropertyRepository::class)
@@ -23,6 +24,7 @@ class Property
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(Min=3, max=255)
      */
     private $title;
 
@@ -33,6 +35,7 @@ class Property
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(min=10, max=400)
      */
     private $surface;
 
@@ -73,6 +76,10 @@ class Property
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex(
+     *     pattern="/^[0-9]{5}+$/",
+     *     message="Code postal n'est pas validé"
+     * )
      */
     private $codePostal;
 
@@ -197,7 +204,7 @@ class Property
     }
     public function getHeatType(): string
     {
-    return self::HEAT[$this->heat];
+        return self::HEAT[$this->heat];
     }
 
     public function getCity(): ?string
